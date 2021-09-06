@@ -31,6 +31,9 @@ prepare() {
 }
 
 build() {
+  # link ssp (needed because mingw env's -fstack-protection)
+  export LDFLAGS="${LDFLAGS} -lssp"
+  
   for _arch in ${_architectures}; do
     mkdir -p "${srcdir}/${_name}/build-${_arch}" && cd "${srcdir}/${_name}/build-${_arch}"
     ${_arch}-configure
